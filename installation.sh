@@ -14,10 +14,10 @@ echo "date $now - LogFileEb " >> /home/pi/log.txt
 #########################################   PORT FORWARD CRONTAB   #########################################
 sudo echo "sudo iptables -t nat -A PREROUTING -p tcp --dport 502 -j REDIRECT --to-ports 5020" > portForward.sh
 sudo crontab -l > crontab_new
-echo "@reboot /home/pi/EbbScripts/portForward.sh" >> crontab_new
+echo "@reboot /home/pi/Desktop/EbbScripts/portForward.sh" > crontab_new
 sudo crontab crontab_new
 sudo rm crontab_new
-sudo chmod +x /home/pi/EbbScripts/portForward.sh
+sudo chmod +x /home/pi/Desktop/EbbScripts/portForward.sh
 echo "Port forwerding "
 sudo ./portForward.sh
 echo "Port is ok "
@@ -54,7 +54,7 @@ echo "Numpy installed"
 echo "Installing Requirements ..." 
 sudo apt-get -y install python3-pip
 sudo apt-get install python3-netifaces
-sudo pip3 install -r /home/pi/EbbScripts/requirements.txt 
+sudo pip3 install -r /home/pi/Desktop/EbbScripts/requirements.txt 
 sudo pip install numpy --upgrade
 sudo apt-get install libatlas-base-dev
 #############################################################################################################################################
