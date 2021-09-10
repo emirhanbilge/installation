@@ -1,0 +1,8 @@
+pymodbus==2.5.2
+dbus-python==1.2.16
+Twisted==21.7.0
+nest-asyncio==1.5
+bleak==0.12
+scipy==1.7
+matplotlib==3.4
+Flask==2.0
