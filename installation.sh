@@ -3,20 +3,66 @@
 
 echo 1234 | sudo -S su
 
+### Pi arayüz olmayan kısımda burası çalıştırılarak oraya gidilecek
+##mkdir Desktop
+##cd Desktop
+##mkdir EbbScripts
+##cd EbbScripts
+
 echo "Git is installed ..."
 sudo apt-get install git -y
 
-now=$(date +"%T")
+now=$(date)
 echo "date $now - LogFileEb " >> /home/pi/log.txt
+
+
+
+#####################################################  Klasörlerin Oluşturulması ##################################
+if [ ! -d "/home/pi/Desktop"]
+then
+echo "Desktop yok oluşuruluyor ... "
+cd /home/pi/
+sudo mkdir Desktop
+else
+echo "Desktop var "
+fi
+
+
+cd Desktop
+
+if [ ! -d "/home/pi/Desktop/EbbScripts"]
+then
+echo "EbbScripts yok oluşuruluyor ... "
+cd /home/pi/Desktop
+sudo mkdir EbbScripts
+else
+echo "EbbScripts var "
+fi
+
+cd EbbScripts
+
+
+path="/home/pi/Desktop/EbbScripts" 
+
+
+
+
+####################################################################################################################
+
+
+
+
+
+
 
 
 
 #########################################   PORT FORWARD CRONTAB   #########################################
 sudo echo "sudo iptables -t nat -A PREROUTING -p tcp --dport 502 -j REDIRECT --to-ports 5020" > portForward.sh
 sudo crontab -l > crontab_new
-sudo echo "@reboot /home/pi/Desktop/EbbScripts/portForward.sh" > crontab_new
-sudo crontab crontab_new
-sudo rm crontab_new
+echo "@reboot /home/pi/Desktop/EbbScripts/portForward.sh" >> crontab_new
+crontab crontab_new
+rm crontab_new
 sudo chmod +x /home/pi/Desktop/EbbScripts/portForward.sh
 echo "Port forwerding "
 sudo ./portForward.sh
@@ -48,15 +94,15 @@ echo "Update Check "
 sudo apt-get update && sudo apt-get -y upgrade
 echo "Update Ok" 
 echo "Installing Numpy"
-sudo apt-get libatlas3-base
-#sudo apt-get install python3-numpy
+sudo apt-get libatlas3-base -y
+sudo apt-get install python3-numpy
 echo "Numpy installed"
 echo "Installing Requirements ..." 
 sudo apt-get -y install python3-pip
 sudo apt-get install python3-netifaces
 sudo pip3 install -r /home/pi/Desktop/EbbScripts/requirements.txt 
-#sudo pip install numpy --upgrade
-sudo apt-get install libatlas-base-dev
+sudo pip install numpy --upgrade
+sudo apt-get install libatlas-base-dev -y
 #############################################################################################################################################
 
 
